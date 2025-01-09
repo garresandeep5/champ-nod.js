@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:ap-south-1:463470956417:task-definition/Test-td01:2"  # ECS Task Definition ARN
+        TaskDefinition: "arn:aws:ecs:ap-south-1:463470956417:task-definition/Test-td01:3"  # ECS Task Definition ARN
         LoadBalancerInfo:
           ContainerName: "poc-cont"  # Container name in ECS Task Definition
           ContainerPort: 5000  # Port the container listens
