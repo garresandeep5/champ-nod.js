@@ -5,5 +5,5 @@ Resources:
       Properties:
         TaskDefinition: "arn:aws:ecs:ap-south-1:463470956417:task-definition/poc-td:3"  # ECS Task Definition ARN
         LoadBalancerInfo:
-          ContainerName: "my-cont"  # Container name in ECS Task Definition
+          ContainerName: "test-cont"  # Container name in ECS Task Definition
           ContainerPort: 5000  # Port the container listens
