@@ -31,6 +31,6 @@ artifacts:
 
 environment:
   variables:
-    DOCKER_USERNAME: "<your-docker-username>"  # Set this in your CodeBuild environment variables.
-    DOCKER_PASSWORD: "<your-docker-password>"  # Use CodeBuild secrets or environment variables.
+    DOCKER_USERNAME: "<sandeepgarre>"  # Set this in your CodeBuild environment variables.
+    DOCKER_PASSWORD: "<Sandy@$1996>"  # Use CodeBuild secrets or environment variables.
 
