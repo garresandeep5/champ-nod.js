@@ -5,17 +5,21 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - echo Logging in to Docker Hub...
+      - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - IMAGE_TAG=latest
   build:
     commands:
       - echo Build started on `date`
+      - echo Pulling base image to avoid rate limits...
+      - docker pull node:alpine
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker images...
+      - echo Pushing the Docker image to Amazon ECR...
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"my-cont","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
@@ -24,3 +28,9 @@ artifacts:
   files:
     - appspec.yaml
     - imagedefinitions.json
+
+environment:
+  variables:
+    DOCKER_USERNAME: "<your-docker-username>"  # Set this in your CodeBuild environment variables.
+    DOCKER_PASSWORD: "<your-docker-password>"  # Use CodeBuild secrets or environment variables.
+
